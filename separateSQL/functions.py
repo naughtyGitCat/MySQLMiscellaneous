@@ -10,16 +10,14 @@ def read_sql(filename):
             total += line
     return total
 
-# 函数，掐头去尾，移除末尾杂项语句，输出前面的复制信息
-def get_repl_info(total):
-    a = re.compile('''SET @@SESSION.SQL_LOG_BIN= 0;''')
+# 函数，取出最后数据相关语句的最后位置
+
+
+def get_tail(total):
+    a = re.compile('''SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;''')
     b = a.search(total)
-    start = b.end()+1
-    m = re.compile('''Current Database:''')
-    n = m.search(total)
-    end = n.start()-1
-    a = total[start:end]
-    print('please notice the replication status:', a)
+    start = b.end()-1
+    return start
 
 # 函数，掐头去尾，移除末尾杂项语句，输出前面的复制信息
 
@@ -67,6 +65,8 @@ def save_paragraph(t, total):
     x = 0
     while 1:
         if x == len(t)-1:
+            with open('db'+str(x), 'wt', encoding='utf-8') as fout:
+                fout.write(total[t[x]:])
             print('over')
             break
         print('x:', x)
