@@ -13,7 +13,7 @@ def read_sql(filename):
 # 函数，取出最后数据相关语句的最后位置
 
 
-def get_tail(total):
+def get_data_tail(total):
     a = re.compile('''SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;''')
     b = a.search(total)
     start = b.end()-1
@@ -73,7 +73,7 @@ def save_paragraph(t, total):
         print('len_t', len(t))
         print('check', t[x], t[x+1])
         print(total[t[x]:t[x+1]])       # 取出第一段内容
-        with open('db'+str(x), 'wt', encoding='utf-8') as fout:
-            fout.write(total[t[x]:t[x+1]])
+        with open('output/db'+str(x)+'.sql', 'wt', encoding='utf-8') as fout:
+            fout.write(total[t[x]-3:t[x+1]])
 
         x += 1
