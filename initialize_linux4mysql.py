@@ -101,7 +101,7 @@ def dirty_ratio():
             print('done')
         if status != 0:
             print('fail,please check manually')
-
+ 
 IO_scheduler()
 open_files()
 disable_NUMA()
