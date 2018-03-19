@@ -17,12 +17,15 @@ suggest("sysctl -a | grep dirty_background_ratio","7.dirty刷新脏页比2","设
 # (命令正常执行返回0，报错则返回1)
 def IO_scheduler():
     x=input('输入yes进行IO调度算法的优化：')
+    command = '''echo 'deadline' >/sys/block/sda/queue/scheduler'''
     if x == 'yes':
-        try:
-            with open('/sys/block/sda/queue/scheduler','wt') as a:
-                a.write('''noop [deadline] cfq''')
-        except:
+        print('now do:', command)
+        (status, output)=subprocess.getstatusoutput(command)
+        if status == 0:
+            print('done')
+        if status != 0:
             print('fail,please check manually')
+
 
 
 def open_files():
