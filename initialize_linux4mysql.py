@@ -76,8 +76,8 @@ def swappiness_ratio():
 
 def dirty_ratio():
     x = input('输入yes更改脏页比：')
-    command1 = '''echo 'm.dirty_background_ratio = 10' >>/etc/sysctl.conf'''
-    command2 = '''echo 'm.dirty_ratio = 10' >>/etc/sysctl.conf'''
+    command1 = '''echo 'vm.dirty_background_ratio = 10' >>/etc/sysctl.conf'''
+    command2 = '''echo 'vm.dirty_ratio = 10' >>/etc/sysctl.conf'''
     command3 = '''systcl -p'''
     if x == 'yes':
         print('now do:', command1)
@@ -101,7 +101,7 @@ def dirty_ratio():
             print('done')
         if status != 0:
             print('fail,please check manually')
- 
+
 IO_scheduler()
 open_files()
 disable_NUMA()
