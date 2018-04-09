@@ -74,7 +74,8 @@ def prepare(port):
 # 创建MySQL用户和用户组
 
 def mysql_user():
-
+    try:
+        cmd=''
 
 
 
