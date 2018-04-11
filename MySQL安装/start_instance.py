@@ -3,21 +3,22 @@
 import subprocess
 import os
 import urllib.request  # 下载
-import shutil           # 复制文件
-import sys,getopt
+import shutil  # 复制文件
+import sys, getopt
+
 #
 # 设计用途：
 #         快速安装3306实例
 
-# 下载二进制包
 
+# ########参数定义段############
+mysql_ver = 'mysql-5.7.21-linux-glibc2.12-x86_64'  # 暂未替换到各个函数中
+miscellaneous_path = '/data/mysql/{}/'.format(port)  # 暂未替换到各个函数中
+data_path = '{}/data'.format(miscellaneous_path)  # 暂未替换到各个函数中
+binlog_path = '{}/logs'.format(miscellaneous_path)  # 暂未替换到各个函数中
+base_path =
 
-# 请求输入端口
-
-
-def input_port():
-    port = input('请输入实例端口：')
-    return port
+# ################
 
 
 # 判断能否上网
@@ -28,11 +29,11 @@ def net_status():
     conn = urllib.request.urlopen(yellow_website).code
     return conn
 
+
 # 调用wget下载
 # TODO:需要对wget命令是否存在进行判断
 
 def download():
-
     if net_status() == 200:
         print('network is ok,start download')
         subprocess.getoutput('yum -y install wget')
@@ -51,7 +52,7 @@ def download():
 
 
 # 解压下载的二进制安装包
-
+# TODO:询问是否创建超链接为mysql
 def untar():
     try:
         tar_path = '/usr/local/src/mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz'
@@ -95,6 +96,7 @@ def del_mysql_user():
     b = os.popen('groupdel  mysql').read().strip('\n')
     print('groupdel executed', b)
 
+
 # 创建数据文件夹,并归属到mysql用户下
 
 
@@ -108,16 +110,24 @@ def prepare(port, uid, gid):
         print('create dir error,please check')
     return '/data/mysql/{}'
 
+
 # 接收指定的my.cnf文件，并复制到相关数据文件夹下
+# TODO:自动询问关键参数，并生成my_$port.cnf
 
 
 def cp_cnf(file_path, data_path):
-        if os.path.exists(file_path):
-            try:
-                shutil.copy(file_path, data_path)
-            except OSError:
-                print('copy failed,please check it')
-        else:
-            print('file does`s not exist')
+    if os.path.exists(file_path):
+        try:
+            shutil.copy(file_path, data_path)
+        except OSError:
+            print('copy failed,please check it')
+    else:
+        print('file does`s not exist')
 
 
+# 生成start_$port.sh启动文件
+# TODO:把参数带进来，缩短cmd长度
+
+def pre_start(port):
+    cmd = 'echo /usr/local/{}/bin/mysqld --defaults-file=/data/mysql/{}/my_{}.cnf &'
+    os.popen('echo')

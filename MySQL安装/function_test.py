@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import os
-from start_instance import add_mysql_user, del_mysql_user, download
+from start_instance import add_mysql_user, del_mysql_user, download, untar
 
 
 # 用户模块测试
@@ -13,6 +13,14 @@ from start_instance import add_mysql_user, del_mysql_user, download
 # gid = os.popen(cmd_getgid).read().strip('\n')
 # print('uid:', uid, 'gid:', gid)
 
+# OK
 
-# 下载模块测试47
-download()
+# 下载模块测试
+# download()
+
+# OK，但是不能实时显示下载进度条
+
+
+# 解压模块测试
+
+untar()

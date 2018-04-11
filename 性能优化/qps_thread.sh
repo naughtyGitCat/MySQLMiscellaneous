@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 mysqladmin ext -i1 |awk '
 /Queries/{q=$4-qp;qp=$4}
 /Threads_connected/{tc=$4}
