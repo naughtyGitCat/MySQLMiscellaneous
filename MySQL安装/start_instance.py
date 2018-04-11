@@ -1,4 +1,5 @@
 # TODO:根据机器与是否多实例生成my.cnf
+# TODO:根据指定的MySQL版本下载二进制包
 import subprocess
 import os
 import urllib.request  # 下载
@@ -28,19 +29,23 @@ def net_status():
     return conn
 
 # 调用wget下载
-
+# TODO:需要对wget命令是否存在进行判断
 
 def download():
 
     if net_status() == 200:
+        print('network is ok,start download')
+        subprocess.getoutput('yum -y install wget')
         source_dir = '/usr/local/src/'
         source = 'https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz'
         # binary = urllib.request.urlopen(source)
         # with open('mysql57_21.tar.gz', 'wb') as file:
         #     file.write(binary)
+        print('set download command')
         download_cmd = 'wget {} -P {}'.format(source, source_dir)
-        get_binary = subprocess.getstatusoutput(download_cmd)
 
+        (status, output) = subprocess.getstatusoutput(download_cmd)
+        print('status:', status, 'output:', output)
     else:
         print('请使用-f命令指定二进制安装包位置')
 
@@ -93,12 +98,12 @@ def del_mysql_user():
 # 创建数据文件夹,并归属到mysql用户下
 
 
-def prepare(port,uid,gid):
+def prepare(port, uid, gid):
     try:
         os.makedirs('/data/mysql/{}/data'.format(port))
         os.mkdir('/data/mysql/{}/logs'.format(port))
         os.mkdir('/data/mysql/{}/tmp'.format(port))
-        os.chown('/data/mysql/{}/',uid,gid)
+        os.chown('/data/mysql/{}/', uid, gid)
     except OSError:
         print('create dir error,please check')
     return '/data/mysql/{}'
