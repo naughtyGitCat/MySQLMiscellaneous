@@ -20,6 +20,14 @@ base_path =
 
 # ################
 
+def get_port():
+    port = input('please set the service  port')
+    print('you have set {} as the service port：'.format(port))
+    return port
+
+def get_password():
+    password = input('please set the root@localhost`s password')
+    print('The password you have inputted is：',password)
 
 # 判断能否上网
 
@@ -127,7 +135,23 @@ def cp_cnf(file_path, data_path):
 
 # 生成start_$port.sh启动文件
 # TODO:把参数带进来，缩短cmd长度
+def write_start_shell(port):
+    cmd = '''echo '/usr/local/{}/bin/mysqld --defaults-file=/data/mysql/{}/my_{}.cnf &' >/root/start_{}.sh'''.format(port, port, port, port)
+    os.popen(cmd)
 
-def pre_start(port):
-    cmd = 'echo /usr/local/{}/bin/mysqld --defaults-file=/data/mysql/{}/my_{}.cnf &'
-    os.popen('echo')
+# 生成conn_$port.sh连接文件
+# TODO:把参数带进来，缩短cmd长度
+def write_connect_shell(port):
+    cmd = '''echo '/usr/local/{}/bin/mysql --defaults-file=/data/mysql/{}/my_{}.cnf -S /data/mysql/{}/tmp/mysql_{}.sock' >/root/start_{}.sh'''.format(port, port, port, port,port,port)
+    os.popen(cmd)
+
+
+# 初始化实例并读取临时密码
+def initialize_instance(port):
+        cmd = 'echo /usr/local/{}/bin/mysqld --defaults-file=/data/mysql/{}/my_{}.cnf --initialize'.format(port, port, port)
+        (status, output) = subprocess.getstatusoutput(cmd)
+        print('status:', status, 'detail:', output)
+        if status ==0:
+            print('Initialize finished,now read temporary password')
+            # 读取error log中的最后一个password信息
+            
