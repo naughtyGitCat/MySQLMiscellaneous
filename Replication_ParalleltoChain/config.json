@@ -1,0 +1,22 @@
+{
+  "master_host":"'192.168.1.8",
+  "master_port":3307,
+  "new_master_host":"192.168.1.8",
+  "new_master_port":3308,
+  "slave_host":"192.168.1.8",
+  "slave_port":3309,
+  "opreate_user":"xxx",
+  "opreate_password":"xxx",
+}
+
+master_host = '192.168.1.8'
+master_port = 3307
+
+new_master_host = '192.168.1.8'
+new_master_port = 3308
+
+slave_host = '192.168.1.8'
+slave_port = 3309
+
+opreate_user = 'repl'
+opreate_password = '123456'  # should have super,replication client/slave,reload privilege
