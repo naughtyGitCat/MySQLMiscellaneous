@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ec6401e-aa9a-4c28-92c0-3cbfbf1c01e7" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Replication_ParalleltoChain_Py2/new_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Replication_ParalleltoChain_Py2/new_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Replication_ParalleltoChain_Py2/new_main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,8 +47,8 @@
       <file leaf-file-name="new_main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Replication_ParalleltoChain_Py2/new_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="228" column="38" lean-forward="true" selection-start-line="228" selection-start-column="38" selection-end-line="228" selection-end-column="38" />
+            <state relative-caret-position="175">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
               <folding>
                 <element signature="e#199#210#0" expanded="true" />
               </folding>
@@ -380,7 +380,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525064844232</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="# 20180430 第二次草稿">
+      <created>1525102364588</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1525102364588</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -434,7 +441,8 @@
     <MESSAGE value="# 20180416 初步完成" />
     <MESSAGE value="# 20180427 pre" />
     <MESSAGE value="# 20180430 临时保存" />
-    <option name="LAST_COMMIT_MESSAGE" value="# 20180430 临时保存" />
+    <MESSAGE value="# 20180430 第二次草稿" />
+    <option name="LAST_COMMIT_MESSAGE" value="# 20180430 第二次草稿" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/MySQL_Replication_Role.py">
@@ -822,8 +830,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Replication_ParalleltoChain_Py2/new_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="228" column="38" lean-forward="true" selection-start-line="228" selection-start-column="38" selection-end-line="228" selection-end-column="38" />
+        <state relative-caret-position="175">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="e#199#210#0" expanded="true" />
           </folding>

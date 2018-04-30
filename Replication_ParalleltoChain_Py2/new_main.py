@@ -1,9 +1,11 @@
 #!/usr/bin/python2
 # coding=utf-8
-# TODO:停止从库进程前先判断从库的SQL或IO线程是否已经停止。若有任意一个停止，弹出输入框，是否开启后继续执行脚本
-# TODO:增加TRY EXCEPT的错误停止逻辑
-# TODO:增加错误回滚到最初的复制拓补的步骤
+# TODO:多样本检测
+# TODO:增加错误回滚步骤异常的提醒
 # TODO:未摘出GTID信息，需要针对GTID进行另外一套流程
+# TODO:将print改为记录日志
+# TODO:将创建实例连接，执行SQL，检查自身Binlog和slave信息做成一个class
+
 # import pymysql
 import time
 from functions import print_slave_status, print_selfbinlog_status, get_newest_file_pos, read_args, print_rep_info
