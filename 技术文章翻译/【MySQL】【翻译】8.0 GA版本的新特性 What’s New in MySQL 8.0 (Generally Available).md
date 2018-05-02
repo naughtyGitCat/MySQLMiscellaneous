@@ -6,6 +6,8 @@
 
 翻译：张锐志
 
+[TOC]
+
 非常高兴的向大家宣布MySQL 8.0 GA版本发布，MySQL 8.0是一个得到全面增强且极具吸引力的新版本。不限于下面几点：
 
 We proudly announce General Availability of MySQL 8.0. [Download now!](http://dev.mysql.com/downloads/mysql/) MySQL 8.0 is an extremely exciting new version of the world’s most popular open source database with improvements across the board. Some key enhancements include:
