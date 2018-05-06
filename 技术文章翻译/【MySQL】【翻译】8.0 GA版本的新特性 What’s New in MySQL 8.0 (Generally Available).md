@@ -12,7 +12,7 @@
 
 We proudly announce General Availability of MySQL 8.0. [Download now!](http://dev.mysql.com/downloads/mysql/) MySQL 8.0 is an extremely exciting new version of the world’s most popular open source database with improvements across the board. Some key enhancements include:
 
-​       **SQL方面**：窗口函数，公共表达式，NOWAIT,SKIPLOCKED,降序索引，分组，常规表达式，字符集，基于性能损耗的优化模式，直方图
+​      **SQL方面**：窗口函数，公共表达式，NOWAIT,SKIPLOCKED,降序索引，分组，正则表达式，字符集，基于性能损耗的优化模式，直方图
 
 1. **SQL** Window functions, Common Table Expressions, NOWAIT and SKIP LOCKED, Descending Indexes, Grouping, Regular Expressions, Character Sets, Cost Model, and Histograms.
 
