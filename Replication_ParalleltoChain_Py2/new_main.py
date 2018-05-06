@@ -18,10 +18,10 @@ orgin_file = ''
 origin_pos = ''
 error_code = ''
 # 读入连接参数
-(master_host, master_port, new_master_host, new_master_port, slave_host, slave_port, opreate_user,
+(master_host, master_port, middle_master_host, middle_master_port, slave_host, slave_port, opreate_user,
  opreate_password) = read_args()
 
-new_master = pymysql.Connect(host=new_master_host, port=new_master_port, user=opreate_user, passwd=opreate_password
+middle_master = pymysql.Connect(host=middle_master_host, port=middle_master_port, user=opreate_user, passwd=opreate_password
                              )
 slave = pymysql.Connect(host=slave_host, port=slave_port, user=opreate_user, passwd=opreate_password
                         )
@@ -29,10 +29,10 @@ master = pymysql.Connect(host=master_host, port=master_port, user=opreate_user, 
                          )
 
 
-(master_host_N, master_port_N, new_master_io_file, new_master_io_pos, new_master_sql_file,
- new_master_sql_pos) = print_slave_status(new_master)
+(master_host_N, master_port_N, middle_master_io_file, middle_master_io_pos, middle_master_sql_file,
+ middle_master_sql_pos) = print_slave_status(middle_master)
 (master_host_S, master_port_S, slave_io_file, slave_io_pos, slave_sql_file, slave_sql_pos) = print_slave_status(slave)
-(io_thread_running_n, sql_thread_running_n) = print_rep_info(new_master)
+(io_thread_running_n, sql_thread_running_n) = print_rep_info(middle_master)
 (io_thread_running_s, sql_thread_running_s) = print_rep_info(slave)
 
 
@@ -42,11 +42,11 @@ master = pymysql.Connect(host=master_host, port=master_port, user=opreate_user, 
 def pre_check():
     global error_code
     # ##################先预检，判断当前复制拓补是否为一主两从，两个从库是否存在slave线程（SQL,IO任一）停止的情况###########
-    (master_host_N, master_port_N, new_master_io_file, new_master_io_pos, new_master_sql_file,
-     new_master_sql_pos) = print_slave_status(new_master)
+    (master_host_N, master_port_N, middle_master_io_file, middle_master_io_pos, middle_master_sql_file,
+     middle_master_sql_pos) = print_slave_status(middle_master)
     (master_host_S, master_port_S, slave_io_file, slave_io_pos, slave_sql_file, slave_sql_pos) = print_slave_status(
         slave)
-    (io_thread_running_n, sql_thread_running_n) = print_rep_info(new_master)
+    (io_thread_running_n, sql_thread_running_n) = print_rep_info(middle_master)
     (io_thread_running_s, sql_thread_running_s) = print_rep_info(slave)
     print('########################预检模块开始###########################')
     if master_host_N == master_host_S and master_port_N == master_port_S \
@@ -145,9 +145,8 @@ def stop_at_chose_pos():
 
 
 
-
  # 切换GO！！！
-def change_to_new_master():
+def change_to_middle_master():
     global middle_master_file
     global middle_master_pos
     global error_code
@@ -163,14 +162,14 @@ def change_to_new_master():
         cursor_slave.execute('reset slave all')
         print('now begin change')
         change_sql = '''change master to  MASTER_HOST='{}',MASTER_PORT={},MASTER_USER='{}',MASTER_PASSWORD='{}',MASTER_LOG_FILE='{}',MASTER_LOG_POS={}''' \
-            .format(new_master_host, new_master_port, opreate_user, opreate_password, middle_master_file, int(middle_master_pos))
+            .format(middle_master_host, middle_master_port, opreate_user, opreate_password, middle_master_file, int(middle_master_pos))
         print(change_sql)
         print('开始切换到新主库')
         cursor_slave.execute(change_sql)
         cursor_slave.execute('start slave')
         print_slave_status(slave)
     except Exception:
-        error_code = 'change_to_new_master'
+        error_code = 'change_to_middle_master'
         raise Exception
 
 
@@ -185,7 +184,7 @@ def after_change():
         cursor_slave = slave.cursor()
         (master_host_S, master_port_S, a, b, c, d) = print_slave_status(slave)
         (io_thread_running_s, sql_thread_running_s) = print_rep_info(slave)
-        if master_port_S == new_master_host and master_port_S == new_master_port \
+        if master_port_S == middle_master_host and master_port_S == middle_master_port \
               and io_thread_running_s == 'Yes' and io_thread_running_s == 'Yes':
             print('change OK,slave running!!!')
     except Exception:
@@ -222,10 +221,10 @@ try:
     stop_slave_io_thread()
     stop_the_middle()
     stop_at_chose_pos()
-    change_to_new_master()
+    change_to_middle_master()
     after_change()
 except Exception:
-    if error_code == 'change_to_new_master':
+    if error_code == 'change_to_middle_master':
         print('已经发生切换，尝试切换回去')
         change_back()
     elif error_code == 'after_change':
@@ -233,3 +232,7 @@ except Exception:
     else:
         print('尚未切换，尝试重新启动两个从库的slave进程')
         start_all_slave()
+
+middle_master.close()
+slave.close()
+master.close()
