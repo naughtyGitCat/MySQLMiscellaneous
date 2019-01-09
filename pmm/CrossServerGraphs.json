@@ -191,7 +191,7 @@
         },
         {
           "dashboard": "https://www.percona.com/blog/2006/12/04/using-loadavg-for-performance-optimization/",
-          "title": "Using LoadAvg for Performance Optimization",
+          "title": "Using LoadAvg for Performance Optimization.",
           "type": "absolute",
           "url": "https://www.percona.com/blog/2006/12/04/using-loadavg-for-performance-optimization/"
         }
